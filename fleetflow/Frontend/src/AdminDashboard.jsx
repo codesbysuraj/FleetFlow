@@ -286,89 +286,37 @@ const AdminDashboard = ({ onNavigate }) => {
           </div>
         </div>
         <div className="admin-dashboard-table-cards-row">
-          <div className="admin-dashboard-table-card">
-            <div
-              className="admin-dashboard-table-header"
-              style={{ fontWeight: 700 }}
-            >
-              Trip
-            </div>
-            <div className="admin-dashboard-table-body">
-              {trips.length === 0 ? (
-                <div style={{ color: "#bbb", padding: "1rem" }}>
-                  No trips yet
-                </div>
-              ) : (
-                trips.map((trip, idx) => (
-                  <div key={idx} className="admin-dashboard-table-entry">
-                    {trip.origin} → {trip.destination}
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-          <div className="admin-dashboard-table-card">
-            <div
-              className="admin-dashboard-table-header"
-              style={{ fontWeight: 700 }}
-            >
-              Vehicle
-            </div>
-            <div className="admin-dashboard-table-body">
-              {trips.length === 0 ? (
-                <div style={{ color: "#bbb", padding: "1rem" }}>
-                  No trips yet
-                </div>
-              ) : (
-                trips.map((trip, idx) => (
-                  <div key={idx} className="admin-dashboard-table-entry">
-                    {trip.vehicle}
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-          <div className="admin-dashboard-table-card">
-            <div
-              className="admin-dashboard-table-header"
-              style={{ fontWeight: 700 }}
-            >
-              Driver
-            </div>
-            <div className="admin-dashboard-table-body">
-              {trips.length === 0 ? (
-                <div style={{ color: "#bbb", padding: "1rem" }}>
-                  No trips yet
-                </div>
-              ) : (
-                trips.map((trip, idx) => (
-                  <div key={idx} className="admin-dashboard-table-entry">
-                    {trip.driver}
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-          <div className="admin-dashboard-table-card">
-            <div
-              className="admin-dashboard-table-header"
-              style={{ fontWeight: 700 }}
-            >
-              Status
-            </div>
-            <div className="admin-dashboard-table-body">
-              {trips.length === 0 ? (
-                <div style={{ color: "#bbb", padding: "1rem" }}>
-                  No trips yet
-                </div>
-              ) : (
-                trips.map((trip, idx) => (
-                  <div key={idx} className="admin-dashboard-table-entry">
-                    {trip.status}
-                  </div>
-                ))
-              )}
-            </div>
+          <div className="dashboard-table-wrapper">
+            <table className="dashboard-table">
+              <thead>
+                <tr>
+                  <th>Trip</th>
+                  <th>Vehicle</th>
+                  <th>Driver</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {trips.length === 0 ? (
+                  <tr>
+                    <td colSpan="4" className="dashboard-no-data">
+                      No trips yet
+                    </td>
+                  </tr>
+                ) : (
+                  trips.map((trip, idx) => (
+                    <tr key={idx}>
+                      <td>
+                        {trip.origin} → {trip.destination}
+                      </td>
+                      <td>{trip.vehicle}</td>
+                      <td>{trip.driver}</td>
+                      <td>{trip.status}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
