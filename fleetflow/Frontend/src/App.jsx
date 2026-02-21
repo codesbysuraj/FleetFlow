@@ -3,11 +3,12 @@ import "./App.css";
 import Login from "./login";
 import AdminDashboard from "./AdminDashboard";
 import VehicleRegistry from "./VehicleRegistry";
+import TripDispatcher from "./TripDispatcher";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null);
-  const [currentView, setCurrentView] = useState('dashboard'); // 'dashboard' or 'vehicles'
+  const [currentView, setCurrentView] = useState('dashboard'); // 'dashboard', 'vehicles', or 'trips'
 
   const handleLogin = (role) => {
     setIsLoggedIn(true);
@@ -26,6 +27,7 @@ const App = () => {
         <>
           {currentView === 'dashboard' && <AdminDashboard onNavigate={navigateTo} />}
           {currentView === 'vehicles' && <VehicleRegistry onNavigate={navigateTo} />}
+          {currentView === 'trips' && <TripDispatcher onNavigate={navigateTo} />}
         </>
       )}
     </div>

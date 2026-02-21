@@ -316,14 +316,14 @@ function VehicleRegistry({ onNavigate }) {
                             onClick={() => handleEdit(vehicle)}
                             title="Edit"
                           >
-                            ✏️
+                            Edit
                           </button>
                           <button
                             className="action-btn delete-btn"
                             onClick={() => handleDelete(vehicle.id)}
                             title="Delete"
                           >
-                            🗑️
+                            Delete
                           </button>
                         </div>
                       </td>
