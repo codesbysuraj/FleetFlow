@@ -30,12 +30,20 @@ const AdminDashboard = ({ onNavigate }) => {
     <div className="admin-dashboard-bg">
       <div className="navbar">
         <span>FleetFlow</span>
-        <button 
-          className="navbar-vehicle-btn"
-          onClick={() => onNavigate && onNavigate('vehicles')}
-        >
-          Vehicle Registry
-        </button>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button 
+            className="navbar-vehicle-btn"
+            onClick={() => onNavigate && onNavigate('vehicles')}
+          >
+            Vehicle Registry
+          </button>
+          <button 
+            className="navbar-vehicle-btn"
+            onClick={() => onNavigate && onNavigate('trips')}
+          >
+            Trip Dispatcher
+          </button>
+        </div>
       </div>
       <div className="admin-dashboard-container">
         <div
