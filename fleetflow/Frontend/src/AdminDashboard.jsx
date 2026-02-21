@@ -14,8 +14,19 @@ const eligibleDrivers = [
   { id: 2, name: "Jane Smith" },
 ];
 
+const menuItems = [
+  "Dashboard",
+  "Vehicle Registry",
+  "Trip Dispatcher",
+  "Maintenance",
+  "Trip & Expense",
+  "Performance",
+  "Analytics",
+];
+
 const AdminDashboard = ({ onNavigate }) => {
   const [showTripForm, setShowTripForm] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   // Form state
   const [vehicle, setVehicle] = useState("");
   const [driver, setDriver] = useState("");
@@ -28,11 +39,51 @@ const AdminDashboard = ({ onNavigate }) => {
 
   return (
     <div className="admin-dashboard-bg">
+      {/* Sidebar Drawer */}
+      <div className={`sidebar-drawer${sidebarOpen ? " open" : ""}`}>
+        <div className="sidebar-header">
+          <span style={{ fontWeight: 700, fontSize: "1.2rem" }}>Menu</span>
+          <button
+            className="sidebar-close-btn"
+            onClick={() => setSidebarOpen(false)}
+          >
+            &times;
+          </button>
+        </div>
+        <ul className="sidebar-menu">
+          {menuItems.map((item) => (
+            <li key={item} className="sidebar-menu-item">
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      {/* Overlay for sidebar */}
+      {sidebarOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setSidebarOpen(false)}
+        ></div>
+      )}
       <div className="navbar">
-        <span>FleetFlow</span>
-        <button 
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          {/* Hamburger Icon */}
+          <button
+            className="hamburger-btn"
+            onClick={() => setSidebarOpen(true)}
+            aria-label="Open menu"
+          >
+            <span className="hamburger-icon">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+          <span>FleetFlow</span>
+        </div>
+        <button
           className="navbar-vehicle-btn"
-          onClick={() => onNavigate && onNavigate('vehicles')}
+          onClick={() => onNavigate && onNavigate("vehicles")}
         >
           Vehicle Registry
         </button>
