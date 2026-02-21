@@ -12,7 +12,17 @@ const initialExpenses = [
   },
 ];
 
-const Expenses = () => {
+const menuItems = [
+  "Dashboard",
+  "Vehicle Registry",
+  "Trip Dispatcher",
+  "Maintenance",
+  "Trip & Expense",
+  "Performance",
+  "Analytics",
+];
+
+const Expenses = ({ onNavigate }) => {
   const [expenses, setExpenses] = useState(initialExpenses);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({
@@ -23,6 +33,7 @@ const Expenses = () => {
     misc: "",
     status: "",
   });
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,17 +56,78 @@ const Expenses = () => {
 
   return (
     <div className="expenses-page-container">
+      {/* Sidebar Drawer */}
+      <div className={`sidebar-drawer${sidebarOpen ? " open" : ""}`}>
+        <div className="sidebar-header">
+          <span style={{ fontWeight: 700, fontSize: "1.2rem" }}>Menu</span>
+          <button
+            className="sidebar-close-btn"
+            onClick={() => setSidebarOpen(false)}
+          >
+            &times;
+          </button>
+        </div>
+        <ul className="sidebar-menu">
+          {menuItems.map((item) => (
+            <li
+              key={item}
+              className="sidebar-menu-item"
+              onClick={() => {
+                if (item === "Dashboard") {
+                  onNavigate && onNavigate("dashboard");
+                } else if (item === "Vehicle Registry") {
+                  onNavigate && onNavigate("vehicles");
+                } else if (item === "Trip Dispatcher") {
+                  onNavigate && onNavigate("trips");
+                } else if (item === "Maintenance") {
+                  onNavigate && onNavigate("maintenance");
+                } else if (item === "Trip & Expense") {
+                  onNavigate && onNavigate("expenses");
+                }
+                setSidebarOpen(false);
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      {/* Overlay for sidebar */}
+      {sidebarOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setSidebarOpen(false)}
+        ></div>
+      )}
+      <div className="navbar">
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          {/* Hamburger Icon */}
+          <button
+            className="hamburger-btn"
+            onClick={() => setSidebarOpen(true)}
+            aria-label="Open menu"
+          >
+            <span className="hamburger-icon">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+          <span>FleetFlow</span>
+        </div>
+        <button
+          className="navbar-vehicle-btn"
+          onClick={() => onNavigate && onNavigate("vehicles")}
+        >
+          Vehicle Registry
+        </button>
+      </div>
+      {/* ...existing Expenses page content... */}
       <div className="expenses-header-row">
-        <span className="expenses-title">Fleet Flow</span>
         <button className="expenses-add-btn" onClick={() => setShowForm(true)}>
           Add an Expense
         </button>
-      </div>
-      <div className="expenses-searchbar-row">
-        <input className="expenses-searchbar" placeholder="Search bar ......" />
-        <button className="expenses-group-btn">Group by</button>
-        <button className="expenses-filter-btn">Filter</button>
-        <button className="expenses-sort-btn">Sort by...</button>
       </div>
       <div className="expenses-table-section">
         <table className="expenses-table">

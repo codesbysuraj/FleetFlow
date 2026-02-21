@@ -1,55 +1,68 @@
-import { useState } from 'react';
-import './VehicleRegistry.css';
+import React, { useState } from "react";
+import "./VehicleRegistry.css";
+
+const menuItems = [
+  "Dashboard",
+  "Vehicle Registry",
+  "Trip Dispatcher",
+  "Maintenance",
+  "Trip & Expense",
+  "Performance",
+  "Analytics",
+];
 
 function VehicleRegistry({ onNavigate }) {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [vehicles, setVehicles] = useState([
     {
       id: 1,
-      plate: 'AA00',
-      model: '2011',
-      type: 'MAN',
-      capacity: '5 tons',
+      plate: "AA00",
+      model: "2011",
+      type: "MAN",
+      capacity: "5 tons",
       odometer: 94000,
-      status: 'Idle'
-    }
+      status: "Idle",
+    },
   ]);
 
   const [formData, setFormData] = useState({
-    plate: '',
-    maxPayload: '',
-    initialOdometer: '',
-    type: '',
-    model: ''
+    plate: "",
+    maxPayload: "",
+    initialOdometer: "",
+    type: "",
+    model: "",
   });
 
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [editingId, setEditingId] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (editingId) {
       // Update existing vehicle
-      setVehicles(prev => prev.map(vehicle => 
-        vehicle.id === editingId 
-          ? {
-              ...vehicle,
-              plate: formData.plate,
-              model: formData.model,
-              type: formData.type,
-              capacity: formData.maxPayload,
-              odometer: parseInt(formData.initialOdometer)
-            }
-          : vehicle
-      ));
+      setVehicles((prev) =>
+        prev.map((vehicle) =>
+          vehicle.id === editingId
+            ? {
+                ...vehicle,
+                plate: formData.plate,
+                model: formData.model,
+                type: formData.type,
+                capacity: formData.maxPayload,
+                odometer: parseInt(formData.initialOdometer),
+              }
+            : vehicle,
+        ),
+      );
       setEditingId(null);
     } else {
       // Add new vehicle
@@ -60,18 +73,18 @@ function VehicleRegistry({ onNavigate }) {
         type: formData.type,
         capacity: formData.maxPayload,
         odometer: parseInt(formData.initialOdometer),
-        status: 'Idle'
+        status: "Idle",
       };
-      setVehicles(prev => [...prev, newVehicle]);
+      setVehicles((prev) => [...prev, newVehicle]);
     }
 
     // Reset form
     setFormData({
-      plate: '',
-      maxPayload: '',
-      initialOdometer: '',
-      type: '',
-      model: ''
+      plate: "",
+      maxPayload: "",
+      initialOdometer: "",
+      type: "",
+      model: "",
     });
   };
 
@@ -81,82 +94,129 @@ function VehicleRegistry({ onNavigate }) {
       maxPayload: vehicle.capacity,
       initialOdometer: vehicle.odometer.toString(),
       type: vehicle.type,
-      model: vehicle.model
+      model: vehicle.model,
     });
     setEditingId(vehicle.id);
   };
 
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to remove this vehicle?')) {
-      setVehicles(prev => prev.filter(vehicle => vehicle.id !== id));
+    if (window.confirm("Are you sure you want to remove this vehicle?")) {
+      setVehicles((prev) => prev.filter((vehicle) => vehicle.id !== id));
     }
   };
 
   const handleCancel = () => {
     setFormData({
-      plate: '',
-      maxPayload: '',
-      initialOdometer: '',
-      type: '',
-      model: ''
+      plate: "",
+      maxPayload: "",
+      initialOdometer: "",
+      type: "",
+      model: "",
     });
     setEditingId(null);
   };
 
-  const filteredVehicles = vehicles.filter(vehicle =>
-    vehicle.plate.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    vehicle.model.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    vehicle.type.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredVehicles = vehicles.filter(
+    (vehicle) =>
+      vehicle.plate.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      vehicle.model.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      vehicle.type.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const handleExport = () => {
     const csvContent = [
-      ['NO', 'Plate', 'Model', 'Type', 'Capacity', 'Odometer', 'Status'],
-      ...vehicles.map((v, i) => [i + 1, v.plate, v.model, v.type, v.capacity, v.odometer, v.status])
-    ].map(row => row.join(',')).join('\n');
+      ["NO", "Plate", "Model", "Type", "Capacity", "Odometer", "Status"],
+      ...vehicles.map((v, i) => [
+        i + 1,
+        v.plate,
+        v.model,
+        v.type,
+        v.capacity,
+        v.odometer,
+        v.status,
+      ]),
+    ]
+      .map((row) => row.join(","))
+      .join("\n");
 
-    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const blob = new Blob([csvContent], { type: "text/csv" });
     const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = 'fleet_vehicles.csv';
+    a.download = "fleet_vehicles.csv";
     a.click();
   };
 
   return (
-    <div className="vehicle-registry-container">
-      {/* Navbar */}
-      <div className="navbar" style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '10px 20px',
-        backgroundColor: 'aqua',
-        marginBottom: '20px'
-      }}>
-        <span style={{ fontSize: '20px', fontWeight: 'bold' }}>FleetFlow - Vehicle Registry</span>
-        <button 
-          onClick={() => onNavigate('dashboard')}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: '#2196F3',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            fontSize: '14px'
-          }}
-        >
-          ← Back to Dashboard
-        </button>
+    <div className="vehicle-registry-bg">
+      {/* Sidebar Drawer */}
+      <div className={`sidebar-drawer${sidebarOpen ? " open" : ""}`}>
+        <div className="sidebar-header">
+          <span style={{ fontWeight: 700, fontSize: "1.2rem" }}>Menu</span>
+          <button
+            className="sidebar-close-btn"
+            onClick={() => setSidebarOpen(false)}
+          >
+            &times;
+          </button>
+        </div>
+        <ul className="sidebar-menu">
+          {menuItems.map((item) => (
+            <li
+              key={item}
+              className="sidebar-menu-item"
+              onClick={() => {
+                if (item === "Dashboard") {
+                  onNavigate && onNavigate("dashboard");
+                } else if (item === "Vehicle Registry") {
+                  onNavigate && onNavigate("vehicles");
+                } else if (item === "Trip Dispatcher") {
+                  onNavigate && onNavigate("trips");
+                } else if (item === "Maintenance") {
+                  onNavigate && onNavigate("maintenance");
+                } else if (item === "Trip & Expense") {
+                  onNavigate && onNavigate("expenses");
+                }
+                setSidebarOpen(false);
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              {item}
+            </li>
+          ))}
+        </ul>
       </div>
-      
+      {/* Overlay for sidebar */}
+      {sidebarOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setSidebarOpen(false)}
+        ></div>
+      )}
+      <div className="navbar">
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          {/* Hamburger Icon */}
+          <button
+            className="hamburger-btn"
+            onClick={() => setSidebarOpen(true)}
+            aria-label="Open menu"
+          >
+            <span className="hamburger-icon">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+          <span>FleetFlow</span>
+        </div>
+      </div>
+
       <div className="registry-layout">
         {/* Left Side - New Vehicle Registration Form */}
         <div className="form-section">
           <div className="section-header">
             <h2 className="section-title">
-              {editingId ? 'Edit Vehicle' : 'New Vehicle Registration'}
+              {editingId ? "Edit Vehicle" : "New Vehicle Registration"}
             </h2>
           </div>
 
@@ -243,9 +303,13 @@ function VehicleRegistry({ onNavigate }) {
 
             <div className="form-buttons">
               <button type="submit" className="btn btn-save">
-                {editingId ? 'Update' : 'Save'}
+                {editingId ? "Update" : "Save"}
               </button>
-              <button type="button" className="btn btn-cancel" onClick={handleCancel}>
+              <button
+                type="button"
+                className="btn btn-cancel"
+                onClick={handleCancel}
+              >
                 Cancel
               </button>
             </div>
@@ -255,9 +319,12 @@ function VehicleRegistry({ onNavigate }) {
         {/* Right Side - Vehicle Registry Table */}
         <div className="table-section">
           <div className="section-header">
-            <h2 className="section-title">Vehicle Registry (Asset Management)</h2>
+            <h2 className="section-title">
+              Vehicle Registry (Asset Management)
+            </h2>
             <p className="section-description">
-              What it's for: This is your digital garage. It's the place where you add, view, change, or remove every vehicle your company owns.
+              What it's for: This is your digital garage. It's the place where
+              you add, view, change, or remove every vehicle your company owns.
             </p>
           </div>
 
@@ -305,7 +372,9 @@ function VehicleRegistry({ onNavigate }) {
                       <td>{vehicle.capacity}</td>
                       <td>{vehicle.odometer.toLocaleString()}</td>
                       <td>
-                        <span className={`status-badge status-${vehicle.status.toLowerCase()}`}>
+                        <span
+                          className={`status-badge status-${vehicle.status.toLowerCase()}`}
+                        >
                           {vehicle.status}
                         </span>
                       </td>
@@ -344,10 +413,22 @@ function VehicleRegistry({ onNavigate }) {
           <div className="info-box">
             <h4>The Details You Track:</h4>
             <ul>
-              <li><strong>Name/Model:</strong> The specific name/make of the vehicle.</li>
-              <li><strong>License Plate:</strong> The unique ID for each vehicle so you don't mix them up.</li>
-              <li><strong>Max Load Capacity:</strong> How much weight the vehicle can safely carry (in kg or tons).</li>
-              <li><strong>Odometer:</strong> The current mileage on the vehicle's dashboard.</li>
+              <li>
+                <strong>Name/Model:</strong> The specific name/make of the
+                vehicle.
+              </li>
+              <li>
+                <strong>License Plate:</strong> The unique ID for each vehicle
+                so you don't mix them up.
+              </li>
+              <li>
+                <strong>Max Load Capacity:</strong> How much weight the vehicle
+                can safely carry (in kg or tons).
+              </li>
+              <li>
+                <strong>Odometer:</strong> The current mileage on the vehicle's
+                dashboard.
+              </li>
             </ul>
           </div>
         </div>

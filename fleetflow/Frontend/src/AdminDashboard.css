@@ -43,6 +43,7 @@
 }
 /* Table as cards with blue header and white body */
 .admin-dashboard-table-cards-row {
+  
   display: flex;
   gap: 2rem;
   margin-top: 2rem;
@@ -455,14 +456,17 @@ body{
   border-radius: 8px;
   border: 1px solid #e5e7eb;
   margin-bottom: 20px;
-  max-width: 1200px;
+  max-width: 1900px;
   margin-left: auto;
   margin-right: auto;
   background: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
 }
 .dashboard-table {
   width: 100%;
+  min-width: 900px;
   border-collapse: collapse;
   font-size: 15px;
 }

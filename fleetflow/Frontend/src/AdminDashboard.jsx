@@ -49,16 +49,38 @@ const AdminDashboard = ({ onNavigate }) => {
           >
             &times;
           </button>
-          <button 
+          <button
             className="navbar-vehicle-btn"
-            onClick={() => onNavigate && onNavigate('maintenance')}
+            onClick={() => onNavigate && onNavigate("maintenance")}
           >
             Maintenance Logs
           </button>
         </div>
         <ul className="sidebar-menu">
           {menuItems.map((item) => (
-            <li key={item} className="sidebar-menu-item">
+            <li
+              key={item}
+              className="sidebar-menu-item"
+              onClick={() => {
+                if (item === "Dashboard") {
+                  onNavigate && onNavigate("dashboard");
+                } else if (item === "Vehicle Registry") {
+                  onNavigate && onNavigate("vehicles");
+                } else if (item === "Trip Dispatcher") {
+                  onNavigate && onNavigate("trips");
+                } else if (item === "Maintenance") {
+                  onNavigate && onNavigate("maintenance");
+                } else if (item === "Trip & Expense") {
+                  onNavigate && onNavigate("expenses");
+                } else if (item === "Performance") {
+                  onNavigate && onNavigate("performance");
+                } else if (item === "Analytics") {
+                  onNavigate && onNavigate("analytics");
+                }
+                setSidebarOpen(false);
+              }}
+              style={{ cursor: "pointer" }}
+            >
               {item}
             </li>
           ))}
@@ -87,12 +109,6 @@ const AdminDashboard = ({ onNavigate }) => {
           </button>
           <span>FleetFlow</span>
         </div>
-        <button
-          className="navbar-vehicle-btn"
-          onClick={() => onNavigate && onNavigate("vehicles")}
-        >
-          Vehicle Registry
-        </button>
       </div>
       <div className="admin-dashboard-container">
         <div
