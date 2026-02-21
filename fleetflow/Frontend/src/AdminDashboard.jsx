@@ -43,6 +43,12 @@ const AdminDashboard = ({ onNavigate }) => {
           >
             Trip Dispatcher
           </button>
+          <button 
+            className="navbar-vehicle-btn"
+            onClick={() => onNavigate && onNavigate('maintenance')}
+          >
+            Maintenance Logs
+          </button>
         </div>
       </div>
       <div className="admin-dashboard-container">
