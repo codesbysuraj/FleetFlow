@@ -1,6 +1,4 @@
 from app import create_app
-from app.routes.auth import auth
-from app import db
 
 app = create_app()
 

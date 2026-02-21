@@ -51,8 +51,8 @@ def add_expense():
         if misc_expense > 0:
             cursor.execute("""
                 INSERT INTO maintenance_logs
-                (vehicle_id, service_type, cost, service_date, status)
-                VALUES (%s,'Misc Expense',%s,CURDATE(),'completed')
+                (vehicle_id, service_type, cost, service_date)
+                VALUES (%s,'Misc Expense',%s,CURDATE())
             """, (vehicle_id, misc_expense))
 
         conn.commit()

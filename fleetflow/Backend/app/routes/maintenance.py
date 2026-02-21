@@ -37,8 +37,8 @@ def create_service():
 
         cursor.execute("""
             INSERT INTO maintenance_logs
-            (vehicle_id, service_type, cost, service_date, status)
-            VALUES (%s,%s,%s,CURDATE(),'new')
+            (vehicle_id, service_type, cost, service_date)
+            VALUES (%s,%s,%s,CURDATE())
         """, (vehicle_id, service_type, cost))
 
       
@@ -69,11 +69,12 @@ def get_service_logs():
 
         cursor.execute("""
             SELECT m.id,
+                   m.vehicle_id,
                    v.model_name AS vehicle,
                    m.service_type,
                    m.service_date,
                    m.cost,
-                   m.status
+                   m.description
             FROM maintenance_logs m
             JOIN vehicles v ON m.vehicle_id = v.id
             ORDER BY m.id DESC
@@ -89,19 +90,13 @@ def get_service_logs():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
-@maintenance_bp.route("/<int:log_id>/status", methods=["PUT"])
+@maintenance_bp.route("/<int:log_id>/complete", methods=["PUT"])
 @jwt_required()
-def update_service_status(log_id):
+def complete_service(log_id):
     claims = get_jwt()
 
     if claims["role"] != "manager":
         return jsonify({"error": "Unauthorized"}), 403
-
-    data = request.get_json()
-    new_status = data.get("status")
-
-    if new_status not in ["new", "in_progress", "completed"]:
-        return jsonify({"error": "Invalid status"}), 400
 
     try:
         conn = get_connection()
@@ -113,25 +108,18 @@ def update_service_status(log_id):
         if not log:
             return jsonify({"error": "Service log not found"}), 404
 
+        # Set vehicle back to available
         cursor.execute("""
-            UPDATE maintenance_logs
-            SET status=%s
+            UPDATE vehicles
+            SET status='available'
             WHERE id=%s
-        """, (new_status, log_id))
-
-      
-        if new_status == "completed":
-            cursor.execute("""
-                UPDATE vehicles
-                SET status='available'
-                WHERE id=%s
-            """, (log["vehicle_id"],))
+        """, (log["vehicle_id"],))
 
         conn.commit()
         cursor.close()
         conn.close()
 
-        return jsonify({"message": "Service status updated"}), 200
+        return jsonify({"message": "Service completed, vehicle available"}), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500

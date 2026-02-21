@@ -14,19 +14,8 @@ const eligibleDrivers = [
   { id: 2, name: "Jane Smith" },
 ];
 
-const menuItems = [
-  "Dashboard",
-  "Vehicle Registry",
-  "Trip Dispatcher",
-  "Maintenance",
-  "Trip & Expense",
-  "Performance",
-  "Analytics",
-];
-
-const AdminDashboard = ({ onNavigate }) => {
+const AdminDashboard = ({ onNavigate, userRole }) => {
   const [showTripForm, setShowTripForm] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   // Form state
   const [vehicle, setVehicle] = useState("");
   const [driver, setDriver] = useState("");
@@ -39,80 +28,6 @@ const AdminDashboard = ({ onNavigate }) => {
 
   return (
     <div className="admin-dashboard-bg">
-      {/* Sidebar Drawer */}
-      <div className={`sidebar-drawer${sidebarOpen ? " open" : ""}`}>
-        <div className="sidebar-header">
-          <span style={{ fontWeight: 700, fontSize: "1.2rem" }}>Menu</span>
-          <button
-            className="sidebar-close-btn"
-            onClick={() => setSidebarOpen(false)}
-          >
-            &times;
-          </button>
-<<<<<<< HEAD
-          <button
-            className="navbar-vehicle-btn"
-            onClick={() => onNavigate && onNavigate("maintenance")}
-          >
-            Maintenance Logs
-          </button>
-=======
->>>>>>> 728f93cfa2869057846f7686d43a755297b454fb
-        </div>
-        <ul className="sidebar-menu">
-          {menuItems.map((item) => (
-            <li
-              key={item}
-              className="sidebar-menu-item"
-              onClick={() => {
-                if (item === "Dashboard") {
-                  onNavigate && onNavigate("dashboard");
-                } else if (item === "Vehicle Registry") {
-                  onNavigate && onNavigate("vehicles");
-                } else if (item === "Trip Dispatcher") {
-                  onNavigate && onNavigate("trips");
-                } else if (item === "Maintenance") {
-                  onNavigate && onNavigate("maintenance");
-                } else if (item === "Trip & Expense") {
-                  onNavigate && onNavigate("expenses");
-                } else if (item === "Performance") {
-                  onNavigate && onNavigate("performance");
-                } else if (item === "Analytics") {
-                  onNavigate && onNavigate("analytics");
-                }
-                setSidebarOpen(false);
-              }}
-              style={{ cursor: "pointer" }}
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-      {/* Overlay for sidebar */}
-      {sidebarOpen && (
-        <div
-          className="sidebar-overlay"
-          onClick={() => setSidebarOpen(false)}
-        ></div>
-      )}
-      <div className="navbar">
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          {/* Hamburger Icon */}
-          <button
-            className="hamburger-btn"
-            onClick={() => setSidebarOpen(true)}
-            aria-label="Open menu"
-          >
-            <span className="hamburger-icon">
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
-          </button>
-          <span>FleetFlow</span>
-        </div>
-      </div>
       <div className="admin-dashboard-container">
         <div
           className="admin-dashboard-searchbar-row"

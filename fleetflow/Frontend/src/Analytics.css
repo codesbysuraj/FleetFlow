@@ -1,0 +1,155 @@
+/* ===== Analytics Page ===== */
+.analytics-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: calc(100vh - 80px);
+  background: #f9fbff;
+}
+
+.analytics-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  font-size: 1.2rem;
+  color: #203F91;
+  font-weight: 600;
+}
+
+/* ===== KPI Cards ===== */
+.analytics-kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.kpi-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(32,63,145,0.08);
+  border-top: 4px solid #203F91;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(32,63,145,0.14);
+}
+
+.kpi-value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #203F91;
+  line-height: 1.2;
+}
+
+.kpi-label {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.4rem;
+  font-weight: 500;
+}
+
+/* ===== Charts Grid ===== */
+.analytics-charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+}
+
+.chart-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(32,63,145,0.08);
+  overflow: hidden;
+}
+
+.chart-title {
+  margin: 0;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(90deg, #203F91 0%, #3A7DEE 100%);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.chart-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.pie-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== Legend ===== */
+.pie-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 140px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+}
+
+.legend-color {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.legend-label {
+  flex: 1;
+  color: #444;
+  font-weight: 500;
+}
+
+.legend-value {
+  font-weight: 700;
+  color: #203F91;
+  min-width: 28px;
+  text-align: right;
+}
+
+.legend-pct {
+  color: #888;
+  font-size: 0.8rem;
+  min-width: 32px;
+  text-align: right;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 860px) {
+  .analytics-charts-grid {
+    grid-template-columns: 1fr;
+  }
+  .chart-body {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .analytics-kpi-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .analytics-page {
+    padding: 1rem;
+  }
+}

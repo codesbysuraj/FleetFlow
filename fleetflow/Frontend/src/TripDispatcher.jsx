@@ -2,18 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./TripDispatcher.css";
 
-const menuItems = [
-  "Dashboard",
-  "Vehicle Registry",
-  "Trip Dispatcher",
-  "Maintenance",
-  "Trip & Expense",
-  "Performance",
-  "Analytics",
-];
-
 function TripDispatcher({ onNavigate }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [trips, setTrips] = useState([]);
   const [vehicles, setVehicles] = useState([]);
   const [drivers, setDrivers] = useState([]);
@@ -216,122 +205,10 @@ function TripDispatcher({ onNavigate }) {
 
   return (
     <div className="trip-dispatcher-bg">
-      {/* Sidebar Drawer */}
-      <div className={`sidebar-drawer${sidebarOpen ? " open" : ""}`}>
-        <div className="sidebar-header">
-          <span style={{ fontWeight: 700, fontSize: "1.2rem" }}>Menu</span>
-          <button
-            className="sidebar-close-btn"
-            onClick={() => setSidebarOpen(false)}
-            aria-label="Close menu"
-          >
-            &times;
-          </button>
-        </div>
-        <ul className="sidebar-menu">
-          {menuItems.map((item) => (
-            <li key={item} className="sidebar-menu-item">
-              <button
-                type="button"
-                aria-label={`Navigate to ${item}`}
-                onClick={() => {
-                  if (item === "Dashboard") {
-                    onNavigate?.("dashboard");
-                  } else if (item === "Vehicle Registry") {
-                    onNavigate?.("vehicles");
-                  } else if (item === "Trip Dispatcher") {
-                    onNavigate?.("trips");
-                  } else if (item === "Maintenance") {
-                    onNavigate?.("maintenance");
-                  } else if (item === "Trip & Expense") {
-                    onNavigate?.("expenses");
-                  }
-                  setSidebarOpen(false);
-                }}
-                style={{
-                  cursor: "pointer",
-                  width: "100%",
-                  background: "none",
-                  border: "none",
-                  textAlign: "left",
-                  padding: "8px 16px",
-                }}
-              >
-                {item}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-      {/* Overlay for sidebar */}
-      {sidebarOpen && (
-        <button
-          className="sidebar-overlay"
-          type="button"
-          aria-label="Close sidebar"
-          onClick={() => setSidebarOpen(false)}
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            background: "rgba(0,0,0,0.3)",
-            border: "none",
-            zIndex: 1000,
-          }}
-        ></button>
-      )}
-      <div className="navbar">
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          {/* Hamburger Icon */}
-          <button
-            className="hamburger-btn"
-            onClick={() => setSidebarOpen(true)}
-            aria-label="Open menu"
-          >
-            <span className="hamburger-icon">
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
-          </button>
-          <span>FleetFlow</span>
-        </div>
-      </div>
       {/* ...existing TripDispatcher page content... */}
       <div className="trip-dispatcher">
-        <div className="header">
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <h1>Fleet Flow</h1>
-            <button
-              onClick={() => onNavigate?.("dashboard")}
-              style={{
-                padding: "10px 20px",
-                backgroundColor: "#2196F3",
-                color: "white",
-                border: "none",
-                borderRadius: "8px",
-                fontSize: "14px",
-                fontWeight: "600",
-                cursor: "pointer",
-                transition: "all 0.2s ease",
-              }}
-              aria-label="Back to Dashboard"
-            >
-              ← Back to Dashboard
-            </button>
-          </div>
-        </div>
-
         <div className="subheader">
-          <h2>4. Trip Dispatcher & Management</h2>
+          <h2>Trip Dispatcher & Management</h2>
         </div>
 
         {error && <div className="error-message">{error}</div>}

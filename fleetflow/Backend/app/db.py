@@ -3,8 +3,7 @@ def get_connection () :
     conn = mysql.connector.connect(
         host="localhost",
         user="root",                 
-
-        password="abc123",
+        password="123456",
         database="fleetflow"
     )
     return conn

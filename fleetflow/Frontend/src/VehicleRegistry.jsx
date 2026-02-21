@@ -1,18 +1,7 @@
 import React, { useState } from "react";
 import "./VehicleRegistry.css";
 
-const menuItems = [
-  "Dashboard",
-  "Vehicle Registry",
-  "Trip Dispatcher",
-  "Maintenance",
-  "Trip & Expense",
-  "Performance",
-  "Analytics",
-];
-
 function VehicleRegistry({ onNavigate }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [vehicles, setVehicles] = useState([
     {
       id: 1,
@@ -149,68 +138,6 @@ function VehicleRegistry({ onNavigate }) {
 
   return (
     <div className="vehicle-registry-bg">
-      {/* Sidebar Drawer */}
-      <div className={`sidebar-drawer${sidebarOpen ? " open" : ""}`}>
-        <div className="sidebar-header">
-          <span style={{ fontWeight: 700, fontSize: "1.2rem" }}>Menu</span>
-          <button
-            className="sidebar-close-btn"
-            onClick={() => setSidebarOpen(false)}
-          >
-            &times;
-          </button>
-        </div>
-        <ul className="sidebar-menu">
-          {menuItems.map((item) => (
-            <li
-              key={item}
-              className="sidebar-menu-item"
-              onClick={() => {
-                if (item === "Dashboard") {
-                  onNavigate && onNavigate("dashboard");
-                } else if (item === "Vehicle Registry") {
-                  onNavigate && onNavigate("vehicles");
-                } else if (item === "Trip Dispatcher") {
-                  onNavigate && onNavigate("trips");
-                } else if (item === "Maintenance") {
-                  onNavigate && onNavigate("maintenance");
-                } else if (item === "Trip & Expense") {
-                  onNavigate && onNavigate("expenses");
-                }
-                setSidebarOpen(false);
-              }}
-              style={{ cursor: "pointer" }}
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-      {/* Overlay for sidebar */}
-      {sidebarOpen && (
-        <div
-          className="sidebar-overlay"
-          onClick={() => setSidebarOpen(false)}
-        ></div>
-      )}
-      <div className="navbar">
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          {/* Hamburger Icon */}
-          <button
-            className="hamburger-btn"
-            onClick={() => setSidebarOpen(true)}
-            aria-label="Open menu"
-          >
-            <span className="hamburger-icon">
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
-          </button>
-          <span>FleetFlow</span>
-        </div>
-      </div>
-
       <div className="registry-layout">
         {/* Left Side - New Vehicle Registration Form */}
         <div className="form-section">

@@ -15,7 +15,7 @@ ADMIN_ROLE = "admin"
 
 def encode_token(user_id, role):
     return create_access_token(
-        identity=user_id,
+        identity=str(user_id),
         additional_claims={"role": role},
         expires_delta=timedelta(hours=6)
     )

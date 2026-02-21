@@ -92,19 +92,8 @@ function Maintenance({ onNavigate }) {
 
   return (
     <div className="maintenance-page">
-      <div className="header">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h1>Fleet Flow</h1>
-          <button 
-            onClick={() => onNavigate && onNavigate('dashboard')}
-            className="btn-back"
-          >
-            ← Back to Dashboard
-          </button>
-        </div>
-      </div>
       <div className="subheader">
-        <h2>5. Maintenance & Service Logs</h2>
+        <h2>Maintenance & Service Logs</h2>
       </div>
       {error && <div className="error-message">{error}</div>}
       <div className="content-container">

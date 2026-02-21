@@ -1,0 +1,274 @@
+.adduser-bg {
+  background: #f9fbff;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.adduser-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  width: 100%;
+}
+
+.adduser-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.adduser-header-row h2 {
+  color: #203F91;
+  margin: 0;
+}
+
+.back-btn {
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.4);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.back-btn:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.add-btn {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-btn:hover {
+  background: #45a049;
+  transform: translateY(-1px);
+}
+
+/* Messages */
+.msg {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.msg-error {
+  background: #ffeaea;
+  color: #d32f2f;
+  border: 1px solid #f5c6cb;
+}
+
+.msg-success {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+/* Form Overlay */
+.form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.form-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(32,63,145,0.18);
+  padding: 2rem 2.5rem;
+  width: 420px;
+  max-width: 95vw;
+}
+
+.form-card h3 {
+  color: #203F91;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-row label {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #333;
+}
+
+.form-row input,
+.form-row select {
+  padding: 0.6rem 0.8rem;
+  border: 1.5px solid #c9dafc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #f9fbff;
+}
+
+.form-row input:focus,
+.form-row select:focus {
+  outline: none;
+  border-color: #3A7DEE;
+}
+
+.role-description {
+  background: #f0f4ff;
+  border-left: 3px solid #3A7DEE;
+  padding: 0.6rem 1rem;
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.role-description p {
+  margin: 0;
+}
+
+.form-btn-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.submit-btn {
+  flex: 1;
+  background: linear-gradient(90deg, #203F91, #3A7DEE);
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.submit-btn:hover {
+  opacity: 0.9;
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cancel-btn {
+  flex: 1;
+  background: #eee;
+  color: #333;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background: #ddd;
+}
+
+/* Users Table */
+.users-table-wrapper {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table th {
+  background: linear-gradient(90deg, #203F91 0%, #3A7DEE 100%);
+  color: #fff;
+  font-weight: 700;
+  padding: 1rem 0.75rem;
+  text-align: left;
+}
+
+.users-table td {
+  padding: 0.8rem 0.75rem;
+  border-bottom: 1px solid #f0f4fa;
+  font-size: 0.95rem;
+}
+
+.users-table tr:last-child td {
+  border-bottom: none;
+}
+
+.users-table tr:hover td {
+  background: #f6f8fe;
+}
+
+/* Role Badges */
+.role-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.role-manager {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.role-dispatcher {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.role-safety {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.role-analyst {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.delete-btn {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.delete-btn:hover {
+  background: #ffcdd2;
+}
