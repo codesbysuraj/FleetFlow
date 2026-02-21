@@ -358,6 +358,7 @@ body{
 .trip-form-row select:focus {
   outline: none;
   border-color: #3A7DEE;
+<<<<<<< HEAD
 }
 
 /* Sidebar Drawer Styles */
@@ -501,4 +502,6 @@ body{
   padding: 40px 20px;
   color: #9ca3af;
   font-style: italic;
+=======
+>>>>>>> 728f93cfa2869057846f7686d43a755297b454fb
 }
