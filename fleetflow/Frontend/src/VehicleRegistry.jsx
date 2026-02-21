@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './VehicleRegistry.css';
 
-function VehicleRegistry() {
+function VehicleRegistry({ onNavigate }) {
   const [vehicles, setVehicles] = useState([
     {
       id: 1,
@@ -125,6 +125,32 @@ function VehicleRegistry() {
 
   return (
     <div className="vehicle-registry-container">
+      {/* Navbar */}
+      <div className="navbar" style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '10px 20px',
+        backgroundColor: 'aqua',
+        marginBottom: '20px'
+      }}>
+        <span style={{ fontSize: '20px', fontWeight: 'bold' }}>FleetFlow - Vehicle Registry</span>
+        <button 
+          onClick={() => onNavigate('dashboard')}
+          style={{
+            padding: '8px 16px',
+            backgroundColor: '#2196F3',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            fontSize: '14px'
+          }}
+        >
+          ← Back to Dashboard
+        </button>
+      </div>
+      
       <div className="registry-layout">
         {/* Left Side - New Vehicle Registration Form */}
         <div className="form-section">

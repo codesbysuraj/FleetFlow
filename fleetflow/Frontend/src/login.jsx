@@ -2,16 +2,45 @@ import { useState } from 'react';
 import './login.css';
 
 function Login({ onLogin }) {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login attempt:', { username, password });
-    // Add your authentication logic here
-    // For now, just navigate to the registry page
-    if (onLogin) {
-      onLogin();
+    setError('');
+    setLoading(true);
+
+    try {
+      const response = await fetch('http://127.0.0.1:5000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Store the token in localStorage
+        localStorage.setItem('access_token', data.access_token);
+        localStorage.setItem('user_role', data.role);
+        localStorage.setItem('user_id', data.user_id);
+        
+        // Call onLogin with the user role
+        if (onLogin) {
+          onLogin(data.role);
+        }
+      } else {
+        setError(data.error || 'Login failed');
+      }
+    } catch (err) {
+      setError('Network error. Please check if the backend is running.');
+      console.error('Login error:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -24,19 +53,27 @@ function Login({ onLogin }) {
         </div>
 
         <form onSubmit={handleSubmit} className="login-form">
+          {/* Error Message */}
+          {error && (
+            <div className="error-message" style={{ color: 'red', marginBottom: '1rem', textAlign: 'center' }}>
+              {error}
+            </div>
+          )}
+
           {/* Email */}
           <div className="form-group">
-            <label htmlFor="username" className="form-label">
+            <label htmlFor="email" className="form-label">
               Email Address
             </label>
             <input
               type="email"
-              id="username"
+              id="email"
               className="form-input"
               placeholder="Enter your email"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={loading}
             />
           </div>
 
@@ -53,6 +90,7 @@ function Login({ onLogin }) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              disabled={loading}
             />
           </div>
 
@@ -68,8 +106,8 @@ function Login({ onLogin }) {
           </div>
 
           {/* Login Button */}
-          <button type="submit" className="login-button">
-            Login
+          <button type="submit" className="login-button" disabled={loading}>
+            {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
 

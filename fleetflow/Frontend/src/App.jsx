@@ -1,24 +1,32 @@
 import React, { useState } from "react";
 import "./App.css";
+import Login from "./login";
 import AdminDashboard from "./AdminDashboard";
+import VehicleRegistry from "./VehicleRegistry";
 
 const App = () => {
-  const [showDashboard, setShowDashboard] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null);
+  const [currentView, setCurrentView] = useState('dashboard'); // 'dashboard' or 'vehicles'
+
+  const handleLogin = (role) => {
+    setIsLoggedIn(true);
+    setUserRole(role);
+  };
+
+  const navigateTo = (view) => {
+    setCurrentView(view);
+  };
 
   return (
     <div className="app-container">
-      {!showDashboard ? (
-        <>
-          <h2>Welcome to FleetFlow</h2>
-          <button
-            className="maintainance-btn"
-            onClick={() => setShowDashboard(true)}
-          >
-            Go to Admin Dashboard
-          </button>
-        </>
+      {!isLoggedIn ? (
+        <Login onLogin={handleLogin} />
       ) : (
-        <AdminDashboard />
+        <>
+          {currentView === 'dashboard' && <AdminDashboard onNavigate={navigateTo} />}
+          {currentView === 'vehicles' && <VehicleRegistry onNavigate={navigateTo} />}
+        </>
       )}
     </div>
   );

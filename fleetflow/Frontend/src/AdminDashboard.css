@@ -1,3 +1,13 @@
 .navbar{
     background-color: aqua;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nav-btn:hover {
+    opacity: 0.9;
 }

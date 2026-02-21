@@ -1,10 +1,28 @@
 import React from "react";
 import "./AdminDashboard.css";
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ onNavigate }) => {
   return (
     <div className="admin-dashboard-bg">
-      <div className="navbar">FleetFlow</div>
+      <div className="navbar">
+        <span>FleetFlow</span>
+        <button 
+          className="nav-btn" 
+          onClick={() => onNavigate('vehicles')}
+          style={{
+            marginLeft: 'auto',
+            padding: '8px 16px',
+            backgroundColor: '#4CAF50',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            fontSize: '14px'
+          }}
+        >
+          Vehicle Registry
+        </button>
+      </div>
       {/* ...existing dashboard content... */}
       <div className="admin-dashboard-container">
         <div className="admin-dashboard-searchbar-row">
