@@ -49,6 +49,12 @@ const AdminDashboard = ({ onNavigate }) => {
           >
             &times;
           </button>
+          <button 
+            className="navbar-vehicle-btn"
+            onClick={() => onNavigate && onNavigate('maintenance')}
+          >
+            Maintenance Logs
+          </button>
         </div>
         <ul className="sidebar-menu">
           {menuItems.map((item) => (
