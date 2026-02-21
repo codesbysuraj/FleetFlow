@@ -358,3 +358,119 @@ body{
   outline: none;
   border-color: #3A7DEE;
 }
+
+/* Menu Bar Styles */
+.menu-bar {
+  display: flex;
+  align-items: center;
+  margin-left: 24px;
+}
+.menu-bar ul {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.menu-bar .menu-item {
+  padding: 10px 20px;
+  background: #f3f4f6;
+  color: #1e3a8a;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.menu-bar .menu-item:hover:not(:disabled) {
+  background: #3b82f6;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.2);
+}
+.menu-bar .menu-item:disabled {
+  background: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Sidebar Menu Styles */
+.sidebar-menu {
+  width: 220px;
+  background: #fff;
+  border-right: 1.5px solid #e5e7eb;
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+}
+.sidebar-header {
+  padding: 24px 20px 12px 20px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #22223b;
+  border-bottom: 1px solid #e5e7eb;
+}
+.sidebar-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #22223b;
+}
+.sidebar-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+}
+.sidebar-list li {
+  margin: 0;
+}
+.sidebar-link {
+  width: 100%;
+  text-align: left;
+  padding: 16px 24px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #1e3a8a;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.sidebar-link:hover:not(:disabled), .sidebar-link:focus:not(:disabled) {
+  background: #e0e7ff;
+  color: #2563eb;
+}
+.sidebar-link:disabled {
+  color: #bdbdbd;
+  cursor: not-allowed;
+  background: none;
+}
+.admin-dashboard-main {
+  margin-left: 220px;
+  padding: 0;
+  min-height: 100vh;
+}
+/* Responsive: collapse sidebar on small screens */
+@media (max-width: 900px) {
+  .sidebar-menu {
+    width: 60px;
+    min-width: 60px;
+  }
+  .sidebar-header, .sidebar-title {
+    font-size: 0;
+    padding: 0;
+  }
+  .sidebar-link {
+    font-size: 0;
+    padding: 16px 10px;
+  }
+  .admin-dashboard-main {
+    margin-left: 60px;
+  }
+}
