@@ -14,8 +14,19 @@ const eligibleDrivers = [
   { id: 2, name: "Jane Smith" },
 ];
 
+const menuItems = [
+  "Dashboard",
+  "Vehicle Registry",
+  "Trip Dispatcher",
+  "Maintenance",
+  "Trip & Expense",
+  "Performance",
+  "Analytics",
+];
+
 const AdminDashboard = ({ onNavigate }) => {
   const [showTripForm, setShowTripForm] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   // Form state
   const [vehicle, setVehicle] = useState("");
   const [driver, setDriver] = useState("");
@@ -28,22 +39,60 @@ const AdminDashboard = ({ onNavigate }) => {
 
   return (
     <div className="admin-dashboard-bg">
-      <div className="navbar">
-        <span>FleetFlow</span>
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <button 
-            className="navbar-vehicle-btn"
-            onClick={() => onNavigate && onNavigate('vehicles')}
+      {/* Sidebar Drawer */}
+      <div className={`sidebar-drawer${sidebarOpen ? " open" : ""}`}>
+        <div className="sidebar-header">
+          <span style={{ fontWeight: 700, fontSize: "1.2rem" }}>Menu</span>
+          <button
+            className="sidebar-close-btn"
+            onClick={() => setSidebarOpen(false)}
           >
-            Vehicle Registry
+            &times;
           </button>
           <button 
             className="navbar-vehicle-btn"
-            onClick={() => onNavigate && onNavigate('trips')}
+            onClick={() => onNavigate && onNavigate('maintenance')}
           >
-            Trip Dispatcher
+            Maintenance Logs
           </button>
         </div>
+        <ul className="sidebar-menu">
+          {menuItems.map((item) => (
+            <li key={item} className="sidebar-menu-item">
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      {/* Overlay for sidebar */}
+      {sidebarOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setSidebarOpen(false)}
+        ></div>
+      )}
+      <div className="navbar">
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          {/* Hamburger Icon */}
+          <button
+            className="hamburger-btn"
+            onClick={() => setSidebarOpen(true)}
+            aria-label="Open menu"
+          >
+            <span className="hamburger-icon">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+          <span>FleetFlow</span>
+        </div>
+        <button
+          className="navbar-vehicle-btn"
+          onClick={() => onNavigate && onNavigate("vehicles")}
+        >
+          Vehicle Registry
+        </button>
       </div>
       <div className="admin-dashboard-container">
         <div
@@ -243,89 +292,37 @@ const AdminDashboard = ({ onNavigate }) => {
           </div>
         </div>
         <div className="admin-dashboard-table-cards-row">
-          <div className="admin-dashboard-table-card">
-            <div
-              className="admin-dashboard-table-header"
-              style={{ fontWeight: 700 }}
-            >
-              Trip
-            </div>
-            <div className="admin-dashboard-table-body">
-              {trips.length === 0 ? (
-                <div style={{ color: "#bbb", padding: "1rem" }}>
-                  No trips yet
-                </div>
-              ) : (
-                trips.map((trip, idx) => (
-                  <div key={idx} className="admin-dashboard-table-entry">
-                    {trip.origin} → {trip.destination}
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-          <div className="admin-dashboard-table-card">
-            <div
-              className="admin-dashboard-table-header"
-              style={{ fontWeight: 700 }}
-            >
-              Vehicle
-            </div>
-            <div className="admin-dashboard-table-body">
-              {trips.length === 0 ? (
-                <div style={{ color: "#bbb", padding: "1rem" }}>
-                  No trips yet
-                </div>
-              ) : (
-                trips.map((trip, idx) => (
-                  <div key={idx} className="admin-dashboard-table-entry">
-                    {trip.vehicle}
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-          <div className="admin-dashboard-table-card">
-            <div
-              className="admin-dashboard-table-header"
-              style={{ fontWeight: 700 }}
-            >
-              Driver
-            </div>
-            <div className="admin-dashboard-table-body">
-              {trips.length === 0 ? (
-                <div style={{ color: "#bbb", padding: "1rem" }}>
-                  No trips yet
-                </div>
-              ) : (
-                trips.map((trip, idx) => (
-                  <div key={idx} className="admin-dashboard-table-entry">
-                    {trip.driver}
-                  </div>
-                ))
-              )}
-            </div>
-          </div>
-          <div className="admin-dashboard-table-card">
-            <div
-              className="admin-dashboard-table-header"
-              style={{ fontWeight: 700 }}
-            >
-              Status
-            </div>
-            <div className="admin-dashboard-table-body">
-              {trips.length === 0 ? (
-                <div style={{ color: "#bbb", padding: "1rem" }}>
-                  No trips yet
-                </div>
-              ) : (
-                trips.map((trip, idx) => (
-                  <div key={idx} className="admin-dashboard-table-entry">
-                    {trip.status}
-                  </div>
-                ))
-              )}
-            </div>
+          <div className="dashboard-table-wrapper">
+            <table className="dashboard-table">
+              <thead>
+                <tr>
+                  <th>Trip</th>
+                  <th>Vehicle</th>
+                  <th>Driver</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {trips.length === 0 ? (
+                  <tr>
+                    <td colSpan="4" className="dashboard-no-data">
+                      No trips yet
+                    </td>
+                  </tr>
+                ) : (
+                  trips.map((trip, idx) => (
+                    <tr key={idx}>
+                      <td>
+                        {trip.origin} → {trip.destination}
+                      </td>
+                      <td>{trip.vehicle}</td>
+                      <td>{trip.driver}</td>
+                      <td>{trip.status}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

@@ -358,3 +358,143 @@ body{
   outline: none;
   border-color: #3A7DEE;
 }
+
+/* Sidebar Drawer Styles */
+.sidebar-drawer {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 240px;
+  height: 100vh;
+  background: #fff;
+  box-shadow: 2px 0 16px rgba(32,63,145,0.10);
+  z-index: 2001;
+  transition: left 0.3s cubic-bezier(.4,0,.2,1);
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px 0 0 18px;
+  border: 2px solid #203F91;
+  border-left: none;
+}
+.sidebar-drawer.open {
+  left: 0;
+}
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1.2rem 0.5rem 1.2rem;
+  border-bottom: 1px solid #e3eafc;
+}
+.sidebar-close-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #203F91;
+  cursor: pointer;
+  line-height: 1;
+}
+.sidebar-menu {
+  list-style: none;
+  padding: 0 0 1rem 0;
+  margin: 0;
+}
+.sidebar-menu-item {
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  color: #203F91;
+  border-bottom: 1px solid #e3eafc;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.sidebar-menu-item:hover {
+  background: #f0f4fa;
+}
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(32,63,145,0.10);
+  z-index: 2000;
+}
+
+/* Hamburger Icon Styles */
+.hamburger-btn {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  margin-right: 0.5rem;
+}
+.hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 28px;
+  height: 22px;
+  justify-content: center;
+}
+.hamburger-icon span {
+  display: block;
+  height: 4px;
+  width: 100%;
+  background: #fff; /* White color for the lines */
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+/* Dashboard Table Styles (copied from VehicleRegistry) */
+.dashboard-table-wrapper {
+  overflow-x: visible;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 20px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.dashboard-table th, .dashboard-table td {
+  padding: 16px 24px;
+}
+.dashboard-table thead {
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  color: white;
+}
+.dashboard-table th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.dashboard-table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+  transition: background 0.2s ease;
+}
+.dashboard-table tbody tr:hover {
+  background: #f9fafb;
+}
+.dashboard-table td {
+  padding: 14px 16px;
+  color: #374151;
+}
+.dashboard-no-data {
+  text-align: center;
+  padding: 40px 20px;
+  color: #9ca3af;
+  font-style: italic;
+}
